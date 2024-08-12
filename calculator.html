@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+  @keyframes moveUp {
+    from {
+        transform: translateY(0);
+        background-position: center;
+    }
+    to {
+        transform: translateY(-100vh);
+        background-position: center top; 
+    }
+}
+
+.main-bg {
+    background-image: url('imgs/calc_bg.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.animate-up {
+    animation: moveUp 0.5s ease forwards;
+}
+</style>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="learnmore.html">What is Carbon Footprint?</a></li>
+                <li><a href="community.html">Our Community</a></li>
+                <li><a href="calculator.html">Calculate Your Carbon Footprint</a></li>
+                <li><a href="about.html">About Us</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-bg">
+        <div class="calculator-content">
+            <h1 class="calculator-title">Household</h1>
+            <h2 class="calculator-subtitle"><span class="green-text">Carbon</span> Footprint <br> Calculator</h2>
+            <p class="calculator-description">
+                Let’s calculate your monthly footprint in three (3) key areas: energy, consumption, transportation, and waste.<br>
+                Take a few minutes to answer the following questions.
+            </p>
+
+            <button class="start-button" onclick="startQuestionnaire()">START</button>
+            
+        </div>
+        </div>
+
+    </main>
+
+    <script>
+         function startQuestionnaire() {
+            const mainBg = document.querySelector('.main-bg');
+            mainBg.classList.add('animate-up');
+            setTimeout(() => {
+                window.location.href = 'questionnaire.html';
+            }, 500);
+            
+        }
+
+        function showFollowUp(id) {
+            document.getElementById('followUp-' + id).style.display = 'block';
+        }
+
+        function hideFollowUp(id) {
+            document.getElementById('followUp-' + id).style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

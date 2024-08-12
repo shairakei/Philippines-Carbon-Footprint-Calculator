@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate your Carbon Footprint</title>
+    <link rel="stylesheet" href="styles.css">
+
+<style>
+    body{
+        font-family: 'Josefin Sans', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 25px;
+    }
+
+    .questions-container{
+        margin: 100px;
+        padding: 50px;
+        color: white;
+        text-align: left;
+    }
+
+    .question{
+        margin-bottom: 20px;
+    }
+
+    .question h2{
+        font-size: 30px;
+    }
+
+    .question p{
+        font-size: 25px;
+        margin-left: 60px;
+    }
+
+    .follow-up{
+        display: none;
+        margin-top: 0;
+    }
+
+    .follow-up p{
+        font-size: 25px;
+        margin-left: 60px;
+    }
+
+    input[type="number"]{
+        padding: 20px 50px;
+        font-size: 25px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border-radius: 40px;
+        border: 2px solid #C8DAA9; 
+        background-color: transparent; 
+        color: white; 
+        margin-left: 60px;
+    }
+
+    input[type="number"]::placeholder{
+            color: #C8DAA9;
+        }
+
+    button{
+        padding: 20px 50px;
+        font-size: 20px;
+        background-color: #C8DAA9;
+        border-radius: 50px; 
+        border: none;
+        cursor: pointer;
+        color: black;
+        margin: 4px;
+        margin-left: 60px;
+    }
+
+    button:hover {
+        background-color: #3E630F;
+        color: white;
+    }
+
+    .submit-button {
+    margin-top: 0px; 
+    font-size: 30px;
+    padding: 20px 40px;
+    border-radius: 50px;
+    background-color: #C8DAA9;
+    color: black;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #45a049;
+    }
+
+    .divider {
+    border: none;
+    border-top: 5px solid #C8DAA9; 
+    border-radius: 50px;
+    margin: 20px 0; 
+    }
+
+    input[type="number"],
+    button,
+    .submit-button {
+        font-family: 'Josefin Sans', Arial, sans-serif;
+      
+    }
+
+    .active {
+    background-color: #3E630F !important;
+    color: white !important;
+    }
+
+
+        .result-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: black;
+            color: #C8DAA9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 9999;
+            display: none; 
+            max-width: 80%; 
+            animation: fadeInOut 0.5s ease-in-out;
+        }
+
+        .result-box h2 {
+            font-family: 'Migra', Arial, Helvetica, sans-serif;
+            font-size: 40px;
+            color: #C8DAA9;
+            
+        }
+
+        .result-box p {
+            font-size: 20px;
+            margin: 20px 0;
+            color: #FFF;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .close-btn {
+            font-family: 'Migra', Arial, Helvetica, sans-serif;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #C8DAA9;
+            font-size: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #3E630F;
+            color: #fff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="learnmore.html">What is Carbon Footprint?</a></li>
+                <li><a href="community.html">Our Community</a></li>
+                <li><a href="calculator.html">Calculate Your Carbon Footprint</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-bg">
+
+            <div class="questions-container">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383z"/>
+                  </svg> Do you own a television set?</h2>
+                <button onclick="showFollowUp('tv')">YES</button>
+                <button onclick="hideFollowUp('tv')">NO</button>
+                <div class="follow-up" id="followUp-tv" style="display: none;">
+                    <p>1.1) How many do you have?</p>
+                    <input id="tvCount" type="number" min="0">
+                    <p>1.2) Do you unplug your TV(s) after using it/them?</p>
+                    <button id="tvUnpluggedYesButton" onclick="toggleTVUnplugged(true)">YES</button>
+                    <button id="tvUnpluggedNoButton" onclick="toggleTVUnplugged(false)">NO</button>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-2-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306"/>
+                  </svg> Do you have a desktop computer?</h2>
+                <button onclick="showFollowUp('computer')">YES</button>
+                <button onclick="hideFollowUp('computer')">NO</button>
+                <div class="follow-up" id="followUp-computer" style="display: none;">
+                    <p>2.1) How many do you have?</p>
+                    <input id="computerCount" type="number" min="0">
+                    <p>2.2) Do you unplug your computer(s) after using it/them?</p>
+                    <button id="computerUnpluggedYesButton" onclick="toggleComputerUnplugged(true)">YES</button>
+                    <button id="computerUnpluggedNoButton" onclick="toggleComputerUnplugged(false)">NO</button>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-3-circle" viewBox="0 0 16 16">
+                    <path d="M7.918 8.414h-.879V7.342h.838c.78 0 1.348-.522 1.342-1.237 0-.709-.563-1.195-1.348-1.195-.79 0-1.312.498-1.348 1.055H5.275c.036-1.137.95-2.115 2.625-2.121 1.594-.012 2.608.885 2.637 2.062.023 1.137-.885 1.776-1.482 1.875v.07c.703.07 1.71.64 1.734 1.917.024 1.459-1.277 2.396-2.93 2.396-1.705 0-2.707-.967-2.754-2.144H6.33c.059.597.68 1.06 1.541 1.066.973.006 1.6-.563 1.588-1.354-.006-.779-.621-1.318-1.541-1.318"/>
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8"/>
+                  </svg> For ventilation, what do you use and how many do you have?</h2>
+                <p>Electric fan</p>
+                <input id="fanCount" type="number" min="0">
+                <p>Air conditioning units</p>
+                <input id="acCount" type="number" min="0">
+            </div>
+            <hr class="divider">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-4-circle" viewBox="0 0 16 16">
+                    <path d="M7.519 5.057q.33-.527.657-1.055h1.933v5.332h1.008v1.107H10.11V12H8.85v-1.559H4.978V9.322c.77-1.427 1.656-2.847 2.542-4.265ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218"/>
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8"/>
+                  </svg> What appliances do you have in your kitchen?</h2>
+                <p>Refrigerator(s)</p>
+                <input id="refrigeratorCount" type="number" min="0">
+                <p>Microwave oven(s)</p>
+                <input id="microwaveCount" type="number" min="0">
+                <p>Electric stove(s)</p>
+                <input id="stoveCount" type="number" min="0">
+                <p>Oven toaster(s)</p>
+                <input id="toasterCount" type="number" min="0">
+                <p>Rice cooker(s)</p>
+                <input id="riceCookerCount" type="number" min="0">
+                <p>Water dispenser(s)</p>
+                <input id="waterDispenserCount" type="number" min="0">
+            </div>
+            <hr class="divider">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-5-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8.006 4.158c-1.57 0-2.654-.902-2.719-2.115h1.237c.14.72.832 1.031 1.529 1.031.791 0 1.57-.597 1.57-1.681 0-.967-.732-1.57-1.582-1.57-.767 0-1.242.45-1.435.808H5.445L5.791 4h4.705v1.103H6.875l-.193 2.343h.064c.17-.258.715-.68 1.611-.68 1.383 0 2.561.944 2.561 2.585 0 1.687-1.184 2.806-2.924 2.806Z"/>
+                  </svg> What do you usually take when going to school or work?</h2>
+                <button onclick="showFollowUp('transport')">Car</button>
+                <button onclick="showFollowUp('transport')">Jeepney</button>
+                <button onclick="showFollowUp('transport')">Bus</button>
+                <button onclick="hideFollowUp('transport')">Skip</button>
+                <div class="follow-up" id="followUp-transport" style="display: none;">
+                    <p>How long does it take for you to reach your destination?</p>
+                    <input id="transportTime" type="number" min="0"> minute(s)
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="question">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-6-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.21 3.855c1.612 0 2.515.99 2.573 1.899H9.494c-.1-.358-.51-.815-1.312-.815-1.078 0-1.817 1.09-1.805 3.036h.082c.229-.545.855-1.155 1.98-1.155 1.254 0 2.508.88 2.508 2.555 0 1.77-1.218 2.783-2.847 2.783-.932 0-1.84-.328-2.409-1.254-.369-.603-.597-1.459-.597-2.642 0-3.012 1.248-4.407 3.117-4.407Zm-.099 4.008c-.92 0-1.564.65-1.564 1.576 0 1.032.703 1.635 1.558 1.635.868 0 1.553-.533 1.553-1.629 0-1.06-.744-1.582-1.547-1.582"/>
+                  </svg> How much waste do you throw away in a week?</h2>
+                <p>Food</p>
+                <input id="foodWaste" type="number" min="0"> kg
+                <p>Paper</p>
+                <input id="paperWaste" type="number" min="0"> kg
+                <p>Wood</p>
+                <input id="woodWaste" type="number" min="0"> kg
+                <p>Garden</p>
+                <input id="gardenWaste" type="number" min="0"> kg
+            </div>
+
+            <button class="submit-button" type="button" onclick="validateFields()">See Results</button>
+
+            <br></br>
+            
+            <div class="result-box" id="resultBox">
+                <span class="close-btn" onclick="hideResult()">X</span>
+                <h2>Your Carbon Footprint Results</h2>
+                <p id="resultsText"></p>
+            </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Household Carbon Footprint Calculator by Team PPG</p>
+    </footer>
+
+    <script>
+
+    let unpluggedTVCount = 0;
+
+        function showFollowUp(id) {
+            document.getElementById('followUp-' + id).style.display = 'block';
+        }
+
+        function hideFollowUp(id) {
+            document.getElementById('followUp-' + id).style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.question button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const question = button.closest('.question');
+                    const buttonsInQuestion = question.querySelectorAll('button');
+
+                    buttonsInQuestion.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    button.classList.add('active');
+                });
+            });
+
+            const followUpButtons = document.querySelectorAll('.follow-up button');
+
+            followUpButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const mainQuestion = button.closest('.question');
+                    const mainQuestionButton = mainQuestion.querySelector('button');
+
+                    mainQuestionButton.classList.add('active');
+                });
+            });
+        });
+
+       
+            function toggleTVUnplugged(isUnplugged) {
+    const tvUnpluggedYesButton = document.getElementById('tvUnpluggedYesButton');
+    const tvUnpluggedNoButton = document.getElementById('tvUnpluggedNoButton');
+
+    if (isUnplugged) {
+        // If TV is unplugged
+        tvUnpluggedYesButton.classList.add('active');
+        tvUnpluggedNoButton.classList.remove('active');
+        // Increment the count of unplugged TV sets
+        unpluggedTVCount = 1; // Setting it to 1 when "YES" is clicked
+    } else {
+        // If TV is not unplugged
+        tvUnpluggedYesButton.classList.remove('active');
+        tvUnpluggedNoButton.classList.add('active');
+        // Reset the count of unplugged TV sets to 0 when "NO" is clicked
+        unpluggedTVCount = 0;
+    }
+}
+
+function toggleComputerUnplugged(isUnplugged) {
+    const computerUnpluggedYesButton = document.getElementById('computerUnpluggedYesButton');
+    const computerUnpluggedNoButton = document.getElementById('computerUnpluggedNoButton');
+
+    if (isUnplugged) {
+        // If computer is unplugged
+        computerUnpluggedYesButton.classList.add('active');
+        computerUnpluggedNoButton.classList.remove('active');
+        // Increment the count of unplugged computer sets
+        unpluggedComputerCount = 1; // Setting it to 1 when "YES" is clicked
+    } else {
+        // If computer is not unplugged
+        computerUnpluggedYesButton.classList.remove('active');
+        computerUnpluggedNoButton.classList.add('active');
+        // Reset the count of unplugged computer sets to 0 when "NO" is clicked
+        unpluggedComputerCount = 0;
+    }
+}
+
+        function showResults() {
+            // Get the values from the input fields
+            const tvCount = parseInt(document.getElementById('tvCount').value) || 0;
+            const computerCount = parseInt(document.getElementById('computerCount').value) || 0;
+            const fanCount = parseInt(document.getElementById('fanCount').value) || 0;
+            const acCount = parseInt(document.getElementById('acCount').value) || 0;
+            const refrigeratorCount = parseInt(document.getElementById('refrigeratorCount').value) || 0;
+            const microwaveCount = parseInt(document.getElementById('microwaveCount').value) || 0;
+            const stoveCount = parseInt(document.getElementById('stoveCount').value) || 0;
+            const toasterCount = parseInt(document.getElementById('toasterCount').value) || 0;
+            const riceCookerCount = parseInt(document.getElementById('riceCookerCount').value) || 0;
+            const waterDispenserCount = parseInt(document.getElementById('waterDispenserCount').value) || 0;
+            const transportTime = parseInt(document.getElementById('transportTime').value) || 0;
+            const foodWaste = parseInt(document.getElementById('foodWaste').value) || 0;
+            const paperWaste = parseInt(document.getElementById('paperWaste').value) || 0;
+            const woodWaste = parseInt(document.getElementById('woodWaste').value) || 0;
+            const gardenWaste = parseInt(document.getElementById('gardenWaste').value) || 0;      
+
+
+             //The value of each electronic set
+             const tvCarbonFootprint = tvCount * 5.37;
+             const computerCarbonFootprint = computerCount * 8.69;
+             const fanCarbonFootprint = fanCount * 4.34;
+             const refrigeratorCarbonFootprint = refrigeratorCount * 15.36;
+             const microwaveCarbonFootprint = microwaveCount * 8.14;
+             const stoveCarbonFootprint = stoveCount * 130.29;
+             const toasterCarbonFootprint = toasterCount * 5.88;
+             const riceCookerCarbonFootprint = riceCookerCount * 27.14;
+             const waterDispenserCarboonFootprint = waterDispenserCount * 156.35;
+             const transportCarbonFootprint = (transportTime/60) * 2.5;
+             const unpluggedTVCountCarbonFootprint = unpluggedTVCount * 0.579
+            
+
+            // Calculate the total number of devices
+            const totalCarbonFootprint = tvCarbonFootprint + computerCarbonFootprint + fanCarbonFootprint + acCount + refrigeratorCarbonFootprint + microwaveCarbonFootprint + stoveCarbonFootprint + toasterCarbonFootprint + riceCookerCarbonFootprint + waterDispenserCarboonFootprint + transportCarbonFootprint + unpluggedTVCountCarbonFootprint;
+
+            // Calculate the total amount of waste
+            const totalWaste = foodWaste + paperWaste + woodWaste + gardenWaste;
+
+            // Display the results
+            const roundedTotalCarbonFootprint = totalCarbonFootprint.toFixed(2);
+                    document.getElementById('resultsText').innerHTML =
+                        'YOUR HOUSEHOLD EMITS A TOTAL OF <strong>' + roundedTotalCarbonFootprint + '</strong> KILOGRAM(S) CO2 PER MONTH';
+                    document.getElementById('resultBox').style.display = 'block';
+
+                }
+
+                function hideResult() {
+                    document.getElementById('resultBox').style.display = 'none';
+
+                }
+
+
+    function validateFields() {
+    const validations = [];
+
+    // Get all input fields
+    const inputs = document.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+        // Check if input value is empty
+        if (input.value.trim() === '') {
+            // Check if the input is inside a follow-up section and if it's visible
+            const followUp = input.closest('.follow-up');
+            if (!followUp || followUp.style.display !== 'none') {
+                validations.push(false);
+                input.style.border = '2px solid red';
+            } else {
+                validations.push(true);
+                input.style.border = '2px solid #C8DAA9';
+            }
+        } else {
+            // Remove highlight if the field is filled
+            input.style.border = '2px solid #C8DAA9';
+            validations.push(true);
+        }
+    });
+
+    // Check if all validations passed
+    if (validations.every(valid => valid)) {
+        showResults(); // If all fields are filled, show results
+    } else {
+        alert('Please fill out all required fields.'); // If any field is empty, show alert
+    }
+}
+    </script>
+
+</body>
+
+</html>
+ 
